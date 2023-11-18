@@ -31,6 +31,10 @@
 *.out
 *.app
 
+# VS Code
+.vscode*
+
 # Other
 session
 proof
+*input*
