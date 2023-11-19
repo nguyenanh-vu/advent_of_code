@@ -3,6 +3,7 @@ import os
 import webbrowser
 import argparse
 import urllib.request
+import shutil
 
 from urllib.error import HTTPError
 
@@ -34,6 +35,12 @@ def main(year = None, day = None):
     if not os.path.exists(workspace_path):
         os.makedirs(workspace_path, exist_ok=True)
 
+    ### import basic project file in workspace
+    try:
+        shutil.copy2('basic.cpp', os.path.join(workspace_path, f'day{day}.cpp'))
+    except Exception as e:
+        print(e.__repr__())
+        
     ### fetch input ###
     req = urllib.request.Request((URL+'/input') % (year, day), headers={'User-Agent': 'Mozilla/5.0', 'Cookie':f'session={get_session()}'})
     try:
