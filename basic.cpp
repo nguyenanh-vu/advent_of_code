@@ -18,11 +18,26 @@ vector<string> read_file() {
     return res;
 }
 
+int part1(vector<string> input) {
+    int res = 0;
+
+    return res;
+}
+
+int part2(vector<string> input) {
+    int res = 0;
+
+    return res;
+}
+
 int main() {
     
     vector<string> input;
 
     input = read_file();
+
+    //std::cout << part1(input) << endl;
+    //std::cout << part2(input) << endl;
 
     return 0;
 }
