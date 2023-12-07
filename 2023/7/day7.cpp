@@ -2,7 +2,6 @@
 #include <fstream>
 #include <vector>
 #include <map>
-#include <list>
 using namespace std;
 
 vector<string> read_file() {
@@ -104,13 +103,12 @@ int part1(vector<string> input) {
     char hands[len * 5];
     int types[len];
     int bids[len];
-    int j;
-    list<int> ordered = {};
-    list<int>::iterator it;
+    int orders[len];
 
     std::fill_n(hands, len*5, 0);
     std::fill_n(types, len, 0);
     std::fill_n(bids, len, 0);
+    std::fill_n(orders, len, 1);
 
     for (int i = 0; i < len; i++) {
         readline(input[i], hands, bids, i);
@@ -118,17 +116,13 @@ int part1(vector<string> input) {
     }
 
     for (int i = 0; i < len; i++) {
-        it = ordered.begin();
-        while (it != ordered.end() && compare(hands, types, *it, i)) {
-            ++it;
+        for (int j = 0; j < i; j++) {
+            orders[ compare(hands, types, i, j) ? i : j ] ++;
         }
-        ordered.insert(it, i);
     }
 
-    it = ordered.end();
     for (int i = 0; i < len; i++) {
-        --it;
-        res += (i + 1) * bids[*it];
+        res += orders[i] * bids[i];
     }
 
     return res;
@@ -191,13 +185,12 @@ int part2(vector<string> input) {
     char hands[len * 5];
     int types[len];
     int bids[len];
-    int j;
-    list<int> ordered = {};
-    list<int>::iterator it;
+    int orders[len];
 
     std::fill_n(hands, len*5, 0);
     std::fill_n(types, len, 0);
     std::fill_n(bids, len, 0);
+    std::fill_n(orders, len, 1);
 
     for (int i = 0; i < len; i++) {
         readline(input[i], hands, bids, i);
@@ -205,17 +198,13 @@ int part2(vector<string> input) {
     }
 
     for (int i = 0; i < len; i++) {
-        it = ordered.begin();
-        while (it != ordered.end() && compare_2(hands, types, *it, i)) {
-            ++it;
+        for (int j = 0; j < i; j++) {
+            orders[ compare_2(hands, types, i, j) ? i : j ] ++;
         }
-        ordered.insert(it, i);
     }
 
-    it = ordered.end();
     for (int i = 0; i < len; i++) {
-        --it;
-        res += (i + 1) * bids[*it];
+        res += orders[i] * bids[i];
     }
 
     return res;
